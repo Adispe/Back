@@ -51,7 +51,7 @@ describe('AuthService', () => {
 
       jest.spyOn(jwtService, 'signAsync').mockResolvedValue('mocked-access-token');
 
-      const result = await authService.signIn('testuser', 'password123');
+      const result = await authService.login('testuser', 'password123');
 
       // Assertions
       expect(result).toEqual({ access_token: 'mocked-access-token' });
@@ -77,7 +77,7 @@ describe('AuthService', () => {
 
       jest.spyOn(mockUser,'validatePassword').mockResolvedValue(false);
 
-      await expect(authService.signIn('testuser', 'invalidpassword')).rejects.toThrow(UnauthorizedException);
+      await expect(authService.login('testuser', 'invalidpassword')).rejects.toThrow(UnauthorizedException);
 
       expect(usersService.findByUsername).toHaveBeenCalledWith('testuser');
       expect(mockUser.validatePassword).toHaveBeenCalledWith('invalidpassword');
