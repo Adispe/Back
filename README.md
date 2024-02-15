@@ -22,14 +22,10 @@ npm run start
 ### Docker commands
 
 Make sure to create and complete a `.env` with the given variables from the `.env.example` in the root folder of the project.
+Use default postgres credentials, if needed reset password with psql.
 
 ```sh
-# create image from dockerfile
-docker build .
+# run docker compose
+docker compose up
 
-# run container
-docker run -p 5432:5432 --name skyscan-db -d
-
-# stop container
-docker stop skyscan-db
 ```
