@@ -1,6 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
+import {authRequest, loginResponse, registerResponse} from "./dto/interfaces";
 
 @Controller('auth')
 export class AuthController {
@@ -9,17 +10,17 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('register')
-  register(@Body() registerDto: Record<string, any>) {
-    return this.authService.register(
-      registerDto.username,
-      registerDto.password,
+  async register(@Body() registerDto: authRequest): Promise<registerResponse> {
+    return await this.authService.register(
+        registerDto.username,
+        registerDto.password,
     );
   }
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+  async login(@Body() signInDto: authRequest): Promise<loginResponse> {
+    return await this.authService.login(signInDto.username, signInDto.password);
   }
 }
