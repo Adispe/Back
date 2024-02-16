@@ -74,6 +74,13 @@
       "src/users/*.(controller|service|guard).ts"
     ],
     "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text"
+    ],
     "testEnvironment": "node"
+  },
+  "jest-junit": {
+    "outputDirectory": "./tests",
+    "outputName": "tests.xml"
   }
 }

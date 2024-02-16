@@ -7,5 +7,6 @@ test:
   script:
     - npm install
     - npm run test:cov
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
