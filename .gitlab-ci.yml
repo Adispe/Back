@@ -4,6 +4,8 @@ stages:
 test:
   stage: test
   image: node:latest
+  tags:
+    - docker
   script:
     - npm install
     - npm run test:cov
