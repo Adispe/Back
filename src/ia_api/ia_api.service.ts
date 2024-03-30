@@ -11,8 +11,8 @@ export class IaApiService {
         form.append('file', file.buffer, {filename: "test.jpg"});
 
         try {
-            const response = await axios.post(process.env.API_IA_URL + '/predict', form,
-                {headers: {"Content-Type": "multipart/form-data"}})
+            const response = await axios.post(process.env.API_IA_URL + '/predict', form
+                );
             return response;
         } catch (error) {
             throw new Error(`Error posting data to IA API: ${error.message}`);

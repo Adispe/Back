@@ -28,18 +28,19 @@ export class PredictionService {
     throw new NotFoundException('Could not find the prediction');
   }
 
-  async createPrediction(file: Express.Multer.File, predReq: PredictionRequestDTO): Promise<PredictionResponseDTO> {
-
+  async createPrediction(file: Express.Multer.File, predReq: PredictionRequestDTO): Promise<any> {
+    
     const resp = await this.iaApiService.predicate(file);
+
+
     
-    const base64String = Buffer.from(resp.data).toString('base64');
     
-    const prediction: PredictionResponseDTO = new PredictionResponseDTO(base64String);
+    
+    const prediction: PredictionResponseDTO = new PredictionResponseDTO(resp.data.image_data);
 
     if(predReq.save){
       //TODO SAVE IN THE DB AND MinIO
     }
-
     return prediction;
   }
 }
