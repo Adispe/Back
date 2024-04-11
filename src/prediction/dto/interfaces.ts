@@ -31,7 +31,7 @@ export class PredictionResponseDTO {
         this.predImgEtag = etag;
     }
     @ApiProperty()
-    data: string;
+    data: any;
 
     @ApiProperty()
     predImgEtag?: string;

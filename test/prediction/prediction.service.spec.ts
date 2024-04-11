@@ -33,7 +33,7 @@ describe('PredictionService', () => {
 
     describe('prediction', () => {
         it('should return and do a prediction ', async () => {
-            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO(Buffer.alloc(0))
+            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test')
 
             const file: Express.Multer.File = {
                 fieldname: "test",
