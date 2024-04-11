@@ -32,11 +32,9 @@ export class PredictionService {
     
     const resp = await this.iaApiService.predicate(file);
 
-
+    const {image_data, class_colors, class_areas} = resp.data;
     
-    
-    
-    const prediction: PredictionResponseDTO = new PredictionResponseDTO(resp.data.image_data);
+    const prediction: PredictionResponseDTO = new PredictionResponseDTO(resp.data.image_data, class_colors, class_areas);
 
     if(predReq.save){
       //TODO SAVE IN THE DB AND MinIO
