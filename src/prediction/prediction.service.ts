@@ -34,7 +34,7 @@ export class PredictionService {
 
     const {image_data, class_colors, class_areas} = resp.data;
     
-    const prediction: PredictionResponseDTO = new PredictionResponseDTO(resp.data.image_data, class_colors, class_areas);
+    const prediction: PredictionResponseDTO = new PredictionResponseDTO(image_data, class_colors, class_areas);
 
     if(predReq.save){
       //TODO SAVE IN THE DB AND MinIO

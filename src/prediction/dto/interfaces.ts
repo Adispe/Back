@@ -20,7 +20,7 @@ export class PredictionRequestDTO {
 export class PredictionResponseDTO {
 
     constructor(pred: string, colors: any, classes: ClassAreas) {
-        this.data = pred;
+        this.image_data = pred;
         this.class_areas = classes;
         this.class_colors = colors;
     }
@@ -34,7 +34,7 @@ export class PredictionResponseDTO {
     }
     
     @ApiProperty()
-    data: string;
+    image_data: string;
 
     @ApiProperty()
     class_areas: ClassAreas;
