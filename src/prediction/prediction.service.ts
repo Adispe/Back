@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {PredictionRequestDTO, PredictionResponseDTO} from "./dto/interfaces";
 import { IaApiService } from "../ia_api/ia_api.service";
+import { log } from 'console';
 
 @Injectable()
 export class PredictionService {
@@ -27,15 +28,19 @@ export class PredictionService {
     throw new NotFoundException('Could not find the prediction');
   }
 
-  async createPrediction(file: Express.Multer.File, predReq: PredictionRequestDTO): Promise<PredictionResponseDTO> {
+  async createPrediction(file: Express.Multer.File, predReq: PredictionRequestDTO): Promise<any> {
+    
+    const resp = await this.iaApiService.predicate(file);
 
-    const predication = await this.iaApiService.predicate(file);
-    const resp: PredictionResponseDTO = new PredictionResponseDTO(predication.data);
+
+    
+    
+    
+    const prediction: PredictionResponseDTO = new PredictionResponseDTO(resp.data.image_data);
 
     if(predReq.save){
       //TODO SAVE IN THE DB AND MinIO
     }
-
-    return resp;
+    return prediction;
   }
 }

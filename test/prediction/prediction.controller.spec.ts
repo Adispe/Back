@@ -30,7 +30,7 @@ describe('PredictionController', () => {
 
     describe('predict', () => {
         it('should return a successful response', async () => {
-            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO(Buffer.alloc(0))
+            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test')
 
             jest.spyOn(predictionService, 'createPrediction').mockImplementation(() => Promise.resolve(mockResponse));
 

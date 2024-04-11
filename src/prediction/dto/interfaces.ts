@@ -19,8 +19,8 @@ export class PredictionRequestDTO {
 
 export class PredictionResponseDTO {
 
-    constructor(pred: Buffer) {
-        this.predication = pred;
+    constructor(pred: string) {
+        this.data = pred;
     }
 
     setBaseEtag(etag: string) {
@@ -31,7 +31,7 @@ export class PredictionResponseDTO {
         this.predImgEtag = etag;
     }
     @ApiProperty()
-    predication: Buffer;
+    data: any;
 
     @ApiProperty()
     predImgEtag?: string;

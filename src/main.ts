@@ -5,7 +5,7 @@ import { setupSwagger } from './swagger.config';
 
 async function bootstrap() {
   dotenv.config();
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {cors: true});
   const port = process.env.PORT;
   setupSwagger(app);
   await app.listen(port);

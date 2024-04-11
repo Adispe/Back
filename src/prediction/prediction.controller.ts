@@ -1,17 +1,40 @@
-import {Controller, Get, Post, Param, UseGuards, UploadedFile, UseInterceptors, Body} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  UseGuards,
+  UploadedFile,
+  UseInterceptors,
+  Body,
+  Res,
+} from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 import Prediction from './prediction.entity';
-import {ApiTags, ApiResponse, ApiOperation, ApiConsumes, ApiBody, ApiProperty} from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiResponse,
+  ApiOperation,
+  ApiConsumes,
+  ApiBody,
+  ApiProperty,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/auth.guard';
-import {IaApiService} from "../ia_api/ia_api.service";
-import {FileUploadDto, PredictionRequestDTO, PredictionResponseDTO} from "./dto/interfaces";
-import {FileInterceptor} from "@nestjs/platform-express/multer";
+import { IaApiService } from '../ia_api/ia_api.service';
+import {
+  FileUploadDto,
+  PredictionRequestDTO,
+  PredictionResponseDTO,
+} from './dto/interfaces';
+import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 @Controller('prediction')
 @ApiTags('prediction')
 export class PredictionController {
-  constructor(private readonly predictionService: PredictionService,
-              private readonly iaService: IaApiService) {}
+  constructor(
+    private readonly predictionService: PredictionService,
+    private readonly iaService: IaApiService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all predictions' })
@@ -33,14 +56,12 @@ export class PredictionController {
     type: Prediction,
   })
   async getPredictionById(@Param('id') id: string): Promise<Prediction> {
-    return await this.predictionService.getPredictionById(
-      Number(id),
-    );
+    return await this.predictionService.getPredictionById(Number(id));
   }
 
   @Post()
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor("file"))
+  @UseInterceptors(FileInterceptor('file'))
   @ApiBody({
     description: 'Base Image File',
     type: FileUploadDto,
@@ -52,8 +73,8 @@ export class PredictionController {
     type: Prediction,
   })
   async createPrediction(
-      @UploadedFile() file: Express.Multer.File,
-      @Body() predReq: PredictionRequestDTO
+    @UploadedFile() file: Express.Multer.File,
+    @Body() predReq: PredictionRequestDTO,
   ): Promise<PredictionResponseDTO> {
     return await this.predictionService.createPrediction(file, predReq);
   }
