@@ -1,14 +1,26 @@
+import { JwtModule } from "@nestjs/jwt";
 import { Test, TestingModule } from '@nestjs/testing';
-import { PredictionService } from '../../src/prediction/prediction.service';
+import { Readable } from "stream";
+import { IaApiModule } from "../../src/ia_api/ia_api.module";
+import { ClassAreas, PredictionRequestDTO, PredictionResponseDTO } from "../../src/prediction/dto/interfaces";
 import { PredictionController } from '../../src/prediction/prediction.controller';
-import {PredictionRequestDTO, PredictionResponseDTO} from "../../src/prediction/dto/interfaces";
-import {Readable} from "stream";
-import {JwtModule} from "@nestjs/jwt";
-import {IaApiModule} from "../../src/ia_api/ia_api.module";
+import { PredictionService } from '../../src/prediction/prediction.service';
 
 describe('PredictionController', () => {
     let predictionController: PredictionController;
     let predictionService: PredictionService;
+    let obj: ClassAreas = {
+        no_data: 0,
+        clouds: 0,
+        artificial: 0,
+        cultivated: 0,
+        broadleaf: 0,
+        coniferous: 0,
+        herbaceous: 0,
+        natural: 0,
+        snow: 0,
+        water: 0
+    }
 
     beforeEach(async () => {
         const PredictionServiceMock =  {
@@ -30,7 +42,7 @@ describe('PredictionController', () => {
 
     describe('predict', () => {
         it('should return a successful response', async () => {
-            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test')
+            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test', 'test', obj)
 
             jest.spyOn(predictionService, 'createPrediction').mockImplementation(() => Promise.resolve(mockResponse));
 

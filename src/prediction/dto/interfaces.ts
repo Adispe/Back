@@ -19,8 +19,10 @@ export class PredictionRequestDTO {
 
 export class PredictionResponseDTO {
 
-    constructor(pred: string) {
-        this.data = pred;
+    constructor(pred: string, colors: any, classes: ClassAreas) {
+        this.image_data = pred;
+        this.class_areas = classes;
+        this.class_colors = colors;
     }
 
     setBaseEtag(etag: string) {
@@ -30,12 +32,32 @@ export class PredictionResponseDTO {
     setPredEtag(etag: string) {
         this.predImgEtag = etag;
     }
+    
     @ApiProperty()
-    data: any;
+    image_data: string;
+
+    @ApiProperty()
+    class_areas: ClassAreas;
+
+    @ApiProperty()
+    class_colors: any;
 
     @ApiProperty()
     predImgEtag?: string;
 
     @ApiProperty()
     baseImgEtag?: string;
+}
+
+export interface ClassAreas {
+    no_data: number,
+    clouds: number,
+    artificial: number,
+    cultivated: number,
+    broadleaf: number,
+    coniferous: number,
+    herbaceous: number,
+    natural: number,
+    snow: number,
+    water: number
 }
