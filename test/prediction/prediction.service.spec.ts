@@ -1,16 +1,24 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {UsersService} from "../../src/users/users.service";
-import {User} from "../../src/users/user.entity";
-import {Repository} from 'typeorm';
-import * as bcrypt from 'bcrypt';
-import {Role} from "../../src/users/models/role.model";
-import {getRepositoryToken} from "@nestjs/typeorm";
-import {PredictionService} from "../../src/prediction/prediction.service";
+import { Test, TestingModule } from '@nestjs/testing';
+import { Readable } from "stream";
+import { Repository } from 'typeorm';
+import { ClassAreas, PredictionRequestDTO, PredictionResponseDTO } from "../../src/prediction/dto/interfaces";
 import Prediction from "../../src/prediction/prediction.entity";
-import {Readable} from "stream";
-import {PredictionRequestDTO, PredictionResponseDTO} from "../../src/prediction/dto/interfaces";
+import { PredictionService } from "../../src/prediction/prediction.service";
 
 describe('PredictionService', () => {
+    let obj: ClassAreas = {
+        no_data: 0,
+        clouds: 0,
+        artificial: 0,
+        cultivated: 0,
+        broadleaf: 0,
+        coniferous: 0,
+        herbaceous: 0,
+        natural: 0,
+        snow: 0,
+        water: 0
+    }
+
     let predictionService: PredictionService;
     let predictionRepository: Partial<Repository<Prediction>>;
 
@@ -33,7 +41,7 @@ describe('PredictionService', () => {
 
     describe('prediction', () => {
         it('should return and do a prediction ', async () => {
-            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test')
+            const mockResponse: PredictionResponseDTO = new PredictionResponseDTO('test', 'test', obj)
 
             const file: Express.Multer.File = {
                 fieldname: "test",

@@ -49,7 +49,7 @@ export class PredictionResponseDTO {
     baseImgEtag?: string;
 }
 
-interface ClassAreas {
+export interface ClassAreas {
     no_data: number,
     clouds: number,
     artificial: number,
